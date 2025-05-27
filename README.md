@@ -46,14 +46,14 @@ C:\Users\TwojaNazwa\.ssh\id_rsa
 
 Metoda 2: PuTTYgen
 
-    Wygeneruj klucz RSA
+Wygeneruj klucz RSA
 
-    Zapisz:
-
+Zapisz:
+```
         Klucz prywatny .ppk (do PuTTY/WinSCP)
 
         Klucz publiczny (w formacie OpenSSH)
-
+```        
 Kopiowanie klucza publicznego na VPS
 
 Z Windowsa:
