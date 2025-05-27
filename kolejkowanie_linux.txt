@@ -1,0 +1,24 @@
+Ściąga: Kolejkowanie Komend w Linuksie
+
+    ; (Średnik): Wykonuje komendy sekwencyjnie, jedną po drugiej, niezależnie od wyniku poprzedniej.
+        komenda1; komenda2 (np. echo A; echo B)
+
+    && (AND): Wykonuje kolejną komendę tylko wtedy, gdy poprzednia zakończyła się sukcesem (kod wyjścia 0).
+        komenda1 && komenda2 (np. cd /home && ls)
+
+    || (OR): Wykonuje kolejną komendę tylko wtedy, gdy poprzednia zakończyła się błędem (kod wyjścia różny od 0).
+        komenda1 || komenda2 (np. grep "tekst" plik.txt || echo "Brak tekstu")
+
+    & (Ampersand): Uruchamia komendę w tle, pozwalając kontynuować pracę w terminalu.
+        komenda & (np. firefox &)
+
+    () (Nawiasy): Grupują komendy, aby zastosować operator &&, || lub & do całej grupy.
+        (komenda1; komenda2) && komenda3
+
+    at: Jednorazowe planowanie wykonania komendy lub skryptu na określoną przyszłość.
+        echo "komenda" | at 10:00 tomorrow
+        
+    cron: Cykliczne planowanie wykonania komend (np. codziennie, co tydzień). Edytuje się przez crontab -e.
+        minuta godzina dzień_miesiąca miesiąc dzień_tygodnia komenda (np. 0 2 * * * /usr/bin/backup.sh)
+
+Mam nadzieję, że to pomoże!

@@ -9,7 +9,7 @@ Ten projekt dokumentuje moje działania administracyjne, naukę oraz eksperyment
 ## 📦 Zakres projektu
 
 - Instalacja i konfiguracja VPS (CloudLinux)
-- Zabezpieczenie serwera (CSF, UFW)
+- Zabezpieczenie serwera (CSF)
 - Hostowanie aplikacji w Dockerze
 - Backupy i monitoring (Prometheus + Grafana, opcjonalnie NetworkChuck stack)
 
@@ -82,6 +82,10 @@ AuthenticationMethods publickey, password oznacza, że użytkownik musi uwierzyt
 
 # CSF – Alternatywa dla Fail2Ban | A nawet wskazane rozwiązanie!
 
+https://alexhost.com/pl/faq/czym-jest-csf-configserver-security-and-firewall/
+
+https://www.plesk.com/blog/various/how-to-install-and-configure-csf/
+
 Wymagania:
 ```
 sudo yum install perl-Math-BigInt -y
@@ -103,7 +107,20 @@ Restartowanie CSF:
 csf -r
 ```
 
-# TODO (następne kroki)
+# CageFS: Izolacja środowisk użytkowników.
+
+```
+yum install cagefs -y
+cagefsctl --init
+```
+
+# LVE: limit zasobów na użytkownika.
+
+```
+yum install lvemanager -y
+```
+
+# TODO (następne kroki) JESZCZE NIE WIEM
 
 Konfiguracja Dockera i kontenerów
 
