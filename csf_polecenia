@@ -73,8 +73,7 @@ Co robi: Wyświetla listę tymczasowych blokad IP nałożonych przez LFD (lub r�
 Kiedy używać: Aby zobaczyć, które IP są tymczasowo zablokowane.
   
 csf -p
-Co robi: Wyświetla wszystkie aktualnie zablokowane adresy IP (zarówno tymczasowe, jak i stałe).
-Kiedy używać: Kompletny widok wszystkich aktywnych blokad.
+Co robi: Ta operacja, która całkowicie resetuje i czyści wszystkie aktywne reguły firewalla iptables, a następnie ponownie uruchamia CSF.
   
 csf -g <adres_IP>
 Co robi: Sprawdza, czy dany adres IP jest zablokowany przez CSF i dlaczego.
