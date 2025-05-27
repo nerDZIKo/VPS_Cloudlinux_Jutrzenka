@@ -73,8 +73,8 @@ Co robi: Wyświetla listę tymczasowych blokad IP nałożonych przez LFD (lub r�
 Kiedy używać: Aby zobaczyć, które IP są tymczasowo zablokowane.
   
 csf -p
-Co robi: Ta operacja, która całkowicie resetuje i czyści wszystkie aktywne reguły firewalla iptables, a następnie ponownie uruchamia CSF.
-  
+Co robi: Używana z firewallem CSF (ConfigServer Security & Firewall), służy do wyświetlenia aktualnej konfiguracji portów i reguł związanych z portami w CSF. Pozwala zobaczyć, które porty są otwarte i monitorowane przez firewall.
+
 csf -g <adres_IP>
 Co robi: Sprawdza, czy dany adres IP jest zablokowany przez CSF i dlaczego.
 Kiedy używać: Gdy użytkownik nie może połączyć się z serwerem i podejrzewasz blokadę firewalla.
@@ -86,4 +86,5 @@ Kiedy używać: Do monitorowania aktywności LFD i wykrywania prób włamania lu
 sudo tail -f /var/log/messages | grep "firewall"
 Co robi: Pokazuje wpisy związane z firewallem z głównego logu systemowego (lokalizacja może się różnić w zależności od dystrybucji, np. /var/log/syslog).
 Kiedy używać: Do ogólnego monitorowania aktywności firewalla na niższym poziomie.
+
 
