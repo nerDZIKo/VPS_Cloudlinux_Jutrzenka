@@ -8,10 +8,10 @@ Ten projekt dokumentuje moje działania administracyjne, naukę oraz eksperyment
 
 ## 📦 Zakres projektu
 
-- ✅ Instalacja i konfiguracja VPS (CloudLinux)
-- ✅ Zabezpieczenie serwera (CSF, UFW)
-- ✅ Hostowanie aplikacji w Dockerze
-- ✅ Backupy i monitoring (Prometheus + Grafana, opcjonalnie NetworkChuck stack)
+- Instalacja i konfiguracja VPS (CloudLinux)
+- Zabezpieczenie serwera (CSF, UFW)
+- Hostowanie aplikacji w Dockerze
+- Backupy i monitoring (Prometheus + Grafana, opcjonalnie NetworkChuck stack)
 
 ---
 
