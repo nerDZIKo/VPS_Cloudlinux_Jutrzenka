@@ -1,0 +1,84 @@
+# VPS DevOps Lab
+
+Ten projekt dokumentuje moje działania administracyjne, naukę i eksperymenty na prywatnym VPS. Skonfigurowałem środowisko developerskie, serwer Nginx, Docker, CI/CD i monitoring.
+
+## Zakres
+- Instalacja i konfiguracja VPS (Cloudlinux)
+- Hardenowanie serwera (fail2ban, ufw)
+- Hostowanie aplikacji w Dockerze
+- Backupy i monitoring (Prometheus + Grafana, Może rozwiązanie Networkchucka)
+
+25.05.2025
+# Aktywacja Systemu i Pierwsza Aktuzalizacja:
+/usr/sbin/rhnreg_ks --activationkey=TWÓJ_KLUCZ_AKTYWACYJNY
+/usr/bin/cldetect --update-license
+dnf update
+
+Refleksja:
+Cana od najniższej licencji to aktualnie 25zł miesięcznie. Zobaczymy jak to wyjdie w funkcjonalności.
+
+26.05.2025
+# fail2ban
+Niestety wielokrotne próby instalacji fail2ban okazały się niepowodzeniem.
+Internet nie wskazuje żadnych informacji oraz dokumentacja Cloudlinux o tym nie wspomina.
+
+27.05.2025
+# Generowanie kluczy SSH (na komputerach z Windows)
+
+Metoda 1: Z PowerShella (Windows 10+)
+ssh-keygen -t rsa -b 4096
+Zapisz w domyślnym katalogu (np. C:\Users\TwojaNazwa\.ssh\id_rsa)
+
+Metoda 2: z PuTTYgen
+Wygeneruj klucz RSA
+Zapisz:
+    klucz prywatny (.ppk) do używania w PuTTY/WinSCP
+    klucz publiczny (OpenSSH format)
+
+# Skopiowanie klucza publicznego na VPS
+
+Z Windowsa:
+scp C:\Users\User\.ssh\id_rsa.pub cloudlinux@146.59.14.176:/home/cloudlinux/.ssh
+
+Na VPS:
+mkdir -p ~/.ssh
+cat /home/cloudlinux/.ssh/id_rsa.pub >> /home/cloudlinux/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+rm id_rsa.pub
+
+# Ustawienie klucza na VPS (Hasło + Klucz)
+
+nano /etc/ssh/sshd_config
+
+PasswordAuthentication yes
+PubkeyAuthentication yes
+AuthenticationMethods publickey,password
+
+-- AuthenticationMethods publickey,password oznacza: wymagaj obu – nie jedno lub drugie
+
+
+
+# Zabezpieczenie SSH – alternatywa dla Fail2Ban w CloudLinux
+CSF (ConfigServer Security & Firewall) – zalecane dla CloudLinux
+
+sudo yum install iptables ~jednak już ma
+sudo yum install perl-Math-BigInt -y
+
+Sprawdzenie:
+perl -MMath::BigInt -e1
+
+Instalacja CSF:
+cd /usr/src
+wget https://download.configserver.com/csf.tgz
+tar -xzf csf.tgz
+cd csf
+sudo su
+sh install.sh
+
+Sprawdzenie:
+perl /usr/local/csf/bin/csftest.pl
+
+Restart CSF:
+csf -r
+
