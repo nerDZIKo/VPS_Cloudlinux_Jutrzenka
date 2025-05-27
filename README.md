@@ -36,6 +36,7 @@ Jako alternatywę wybrałem CSF (ConfigServer Security & Firewall) – rozwiąza
 ## 27.05.2025 – Konfiguracja dostępu SSH (Windows)
 
 Generowanie kluczy SSH
+
 Metoda 1: PowerShell (Windows 10+)
 
 ssh-keygen -t rsa -b 4096
@@ -49,6 +50,7 @@ Metoda 2: PuTTYgen
 Wygeneruj klucz RSA
 
 Zapisz:
+
 ```
         Klucz prywatny .ppk (do PuTTY/WinSCP)
 
