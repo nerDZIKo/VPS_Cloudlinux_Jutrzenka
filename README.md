@@ -26,14 +26,14 @@ dnf update
 #Refleksja:
 Cena najniższej licencji CloudLinux to obecnie 25 zł miesięcznie. Zobaczymy, jak to się sprawdzi w praktyce i czy koszt jest uzasadniony w kontekście dostępnych funkcji.
 
-# 📅 26.05.2025 – Fail2Ban: niekompatybilność z CloudLinux
+## 📅 26.05.2025 – Fail2Ban: niekompatybilność z CloudLinux
 Próby instalacji fail2ban zakończyły się niepowodzeniem.
 CloudLinux nie wspiera tej technologii natywnie i nie dostarcza oficjalnej dokumentacji.
 
 Decyzja:
 Jako alternatywę wybrałem CSF (ConfigServer Security & Firewall) – rozwiązanie zalecane przez CloudLinux.
 
-# 27.05.2025 – Konfiguracja dostępu SSH (Windows)
+## 27.05.2025 – Konfiguracja dostępu SSH (Windows)
 
 Generowanie kluczy SSH
 Metoda 1: PowerShell (Windows 10+)
@@ -83,11 +83,13 @@ AuthenticationMethods publickey, password oznacza, że użytkownik musi uwierzyt
 # CSF – Alternatywa dla Fail2Ban | A nawet wskazane rozwiązanie!
 
 Wymagania:
+```
 sudo yum install perl-Math-BigInt -y
 perl -MMath::BigInt -e1 #Testujemy działanie
-
+```
 Instalacja CSF (ConfigServer Security & Firewall)
 
+```
 cd /usr/src
 wget https://download.configserver.com/csf.tgz
 tar -xzf csf.tgz
@@ -99,7 +101,7 @@ perl /usr/local/csf/bin/csftest.pl
 
 Restartowanie CSF:
 csf -r
-
+```
 
 # TODO (następne kroki)
 
