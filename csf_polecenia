@@ -1,0 +1,90 @@
+Sprawdzanie:
+
+csf -s
+Co robi: Pokazuje aktualny status firewalla CSF i demona LFD (Login Failure Daemon).
+Kiedy używać: Aby szybko sprawdzić, czy CSF jest włączone i działa.
+  
+csf -l
+Co robi: Wyświetla listę wszystkich aktywnych reguł iptables zarządzanych przez CSF. To jest "surowy" widok, ale bardzo szczegółowy.
+Kiedy używać: Do dogłębnej analizy, co dokładnie przepuszcza lub blokuje firewall.
+  
+csf -v
+Co robi: Wyświetla wersję CSF i informacje o systemie.
+Kiedy używać: Aby sprawdzić, czy masz aktualną wersję.
+  
+grep -E "TCP_IN|UDP_IN" /etc/csf/csf.conf
+Co robi: Szybko pokazuje listę portów TCP i UDP, które są otwarte dla ruchu przychodzącego w konfiguracji CSF.
+Kiedy używać: Podstawowy sposób na sprawdzenie, które porty są publicznie dostępne.
+  
+cat /etc/csf/csf.allow
+Co robi: Wyświetla listę adresów IP i reguł, które są zawsze dozwolone przez firewall (whitelist).
+Kiedy używać: Aby sprawdzić, które IP mają stały dostęp, niezależnie od innych reguł.
+  
+cat /etc/csf/csf.deny
+Co robi: Wyświetla listę adresów IP i reguł, które są trwale zablokowane przez firewall (blacklist).
+Kiedy używać: Aby sprawdzić, które IP zostały zablokowane (ręcznie lub automatycznie przez LFD).
+
+---------------------------------------------------------------------------------------------------------------------------------------
+Łatanie i Modyfikowanie:
+
+sudo nano /etc/csf/csf.conf
+Co robi: Otwiera główny plik konfiguracyjny CSF w edytorze tekstu Nano. Tutaj zmieniasz TCP_IN, UDP_IN, CC_DENY i wiele innych opcji.
+Kiedy używać: Do ręcznej edycji globalnych ustawień firewalla. Pamiętaj o restarcie CSF po zmianach!
+  
+sudo nano /etc/csf/csf.allow
+Co robi: Otwiera plik, do którego możesz dodawać zaufane adresy IP.
+Kiedy używać: Gdy chcesz zezwolić konkretnemu IP na stały dostęp.
+Przykład: echo "192.168.1.100 # Moje domowe IP" | sudo tee -a /etc/csf/csf.allow
+
+sudo nano /etc/csf/csf.deny
+Co robi: Otwiera plik, do którego możesz dodawać adresy IP do zablokowania.
+Kiedy używać: Gdy chcesz trwale zablokować konkretne IP.
+Przykład: echo "1.2.3.4 # Spam IP" | sudo tee -a /etc/csf/csf.deny
+
+csf -a <adres_IP>
+Co robi: Dodaje adres IP do listy dozwolonych (csf.allow).
+Kiedy używać: Szybkie dodawanie zaufanego IP bez edycji pliku.
+  
+csf -d <adres_IP>
+Co robi: Dodaje adres IP do listy zablokowanych (csf.deny).
+Kiedy używać: Szybkie blokowanie złośliwego IP.
+  
+csf -ar <adres_IP>
+Co robi: Usuwa adres IP z listy dozwolonych (csf.allow).
+  
+csf -dr <adres_IP>
+Co robi: Usuwa adres IP z listy zablokowanych (csf.deny).
+  
+csf -r
+Co robi: Restartuje firewall CSF, ponownie ładując wszystkie reguły z plików konfiguracyjnych.
+Kiedy używać: Zawsze po wprowadzeniu jakichkolwiek zmian w plikach konfiguracyjnych CSF.
+  
+csf -x
+Co robi: Wyłącza firewall CSF.
+Kiedy używać: Tylko w sytuacjach awaryjnych lub testowych, ponieważ serwer pozostanie niezabezpieczony.
+  
+csf -e
+Co robi: Włącza firewall CSF (jeśli jest wyłączony).
+---------------------------------------------------------------------------------------------------------------------------------------
+Monitorowanie i Diagnostyka:
+
+csf -t
+Co robi: Wyświetla listę tymczasowych blokad IP nałożonych przez LFD (lub ręcznie przez administratora) wraz z czasem ich wygaśnięcia.
+Kiedy używać: Aby zobaczyć, które IP są tymczasowo zablokowane.
+  
+csf -p
+Co robi: Wyświetla wszystkie aktualnie zablokowane adresy IP (zarówno tymczasowe, jak i stałe).
+Kiedy używać: Kompletny widok wszystkich aktywnych blokad.
+  
+csf -g <adres_IP>
+Co robi: Sprawdza, czy dany adres IP jest zablokowany przez CSF i dlaczego.
+Kiedy używać: Gdy użytkownik nie może połączyć się z serwerem i podejrzewasz blokadę firewalla.
+  
+sudo tail -f /var/log/lfd.log
+Co robi: Wyświetla logi demona LFD w czasie rzeczywistym. LFD monitoruje logi systemowe i blokuje adresy IP za nieudane logowania itp.
+Kiedy używać: Do monitorowania aktywności LFD i wykrywania prób włamania lub problemów z dostępem.
+  
+sudo tail -f /var/log/messages | grep "firewall"
+Co robi: Pokazuje wpisy związane z firewallem z głównego logu systemowego (lokalizacja może się różnić w zależności od dystrybucji, np. /var/log/syslog).
+Kiedy używać: Do ogólnego monitorowania aktywności firewalla na niższym poziomie.
+
